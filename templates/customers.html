@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#4CAF50">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="header">Customers</div>
+
+<div class="container">
+
+<form method="POST" action="/add_customer" class="card">
+    <input type="hidden" name="area_id" value="{{area_id}}">
+    <input name="name" placeholder="Customer Name" required>
+    <input name="phone" placeholder="Phone" required>
+    <button class="btn btn-primary">Add Customer</button>
+</form>
+
+{% for c in customers %}
+    <div class="card">
+        <a href="/chat/{{c[0]}}">{{c[1]}}</a>
+    </div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/static/sw.js')
+    .then(() => console.log("Service Worker Registered"));
+}
+</script>

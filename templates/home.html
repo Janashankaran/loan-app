@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#4CAF50">
+    <title>Loan App</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="header">Loan Collection App</div>
+
+<div class="container">
+
+    <div class="card">
+        <a href="/areas"><button class="btn btn-primary">🏘️ Areas</button></a>
+    </div>
+
+    <div class="card">
+        <a href="/search"><button class="btn btn-primary">🔍 Search Customer</button></a>
+    </div>
+
+    <div class="card">
+        <a href="/dashboard"><button class="btn btn-primary">📊 Dashboard</button></a>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/static/sw.js')
+    .then(() => console.log("Service Worker Registered"));
+}
+</script>

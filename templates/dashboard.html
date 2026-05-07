@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#4CAF50">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="header">Dashboard</div>
+
+<div class="container">
+
+<div class="card">
+    <h3>Today</h3>
+    <p>{{today}}</p>
+</div>
+
+<div class="card">
+    <h3>Total Collection</h3>
+    <p>₹ {{total}}</p>
+</div>
+
+</div>
+
+</body>
+</html>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/static/sw.js')
+    .then(() => console.log("Service Worker Registered"));
+}
+</script>

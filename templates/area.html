@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#4CAF50">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="header">Areas</div>
+
+<div class="container">
+
+<form method="POST" action="/add_area" class="card">
+    <input name="state" placeholder="State" required>
+    <input name="district" placeholder="District" required>
+    <input name="village" placeholder="Village" required>
+    <button class="btn btn-primary">Add Area</button>
+</form>
+
+<input type="text" id="search" placeholder="Search Area">
+
+<div id="areaList">
+{% for area in areas %}
+    <div class="card">
+        <a href="/customers/{{area[0]}}">
+            {{area[1]}} - {{area[2]}} - {{area[3]}}
+        </a>
+    </div>
+{% endfor %}
+</div>
+
+</div>
+
+<script>
+document.getElementById("search").addEventListener("input", function() {
+    let value = this.value.toLowerCase();
+    document.querySelectorAll("#areaList .card").forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(value) ? "" : "none";
+    });
+});
+</script>
+
+</body>
+</html>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/static/sw.js')
+    .then(() => console.log("Service Worker Registered"));
+}
+</script>

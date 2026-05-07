@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#4CAF50">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="header">Search</div>
+
+<div class="container">
+
+<form>
+    <input name="q" placeholder="Search name or phone">
+</form>
+
+{% for r in results %}
+    <div class="card">
+        <a href="/chat/{{r[0]}}">
+            {{r[1]}} - {{r[2]}} - {{r[3]}}
+        </a>
+    </div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/static/sw.js')
+    .then(() => console.log("Service Worker Registered"));
+}
+</script>

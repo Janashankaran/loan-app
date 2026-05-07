@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#4CAF50">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="header">Transactions</div>
+
+<div class="container">
+
+<a href="/statement/{{customer_id}}">📤 Share Statement</a>
+
+<div class="chat-box">
+{% for t in data %}
+    {% if t[2] == 'given' %}
+        <div class="msg left">{{t[3]}}</div>
+    {% else %}
+        <div class="msg right">{{t[3]}}</div>
+    {% endif %}
+{% endfor %}
+</div>
+
+<div class="balance">
+    Balance: ₹ {{balance}} <br>
+    Status: {{status}}
+</div>
+
+<form method="POST" action="/add_transaction" class="card">
+    <input type="hidden" name="customer_id" value="{{customer_id}}">
+    <input name="amount" placeholder="Enter amount" required>
+
+    <button class="btn btn-red" name="type" value="given">Given</button>
+    <button class="btn btn-green" name="type" value="received">Received</button>
+</form>
+
+</div>
+
+</body>
+</html>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/static/sw.js')
+    .then(() => console.log("Service Worker Registered"));
+}
+</script>
