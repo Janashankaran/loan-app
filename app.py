@@ -1,10 +1,42 @@
 from flask import Flask, render_template, request, redirect, send_file
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 import sqlite3
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import io
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://loan_user:JP1QeM1oMHsaMRT1tSEiYPuMdUDPQ1jG@dpg-d7u3isnavr4c73d9g2qg-a/loan_db_qb4z'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+class Area(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    state = db.Column(db.String(100))
+    district = db.Column(db.String(100))
+    village = db.Column(db.String(100))
+
+
+class Customer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+    area_id = db.Column(db.Integer)
+
+
+class Transaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.Integer)
+    type = db.Column(db.String(20))
+    amount = db.Column(db.Float)
+    date = db.Column(db.String(50))
+    time = db.Column(db.String(50))
+
+
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100))
+    password = db.Column(db.String(100))
 
 # ---------------- SECRET KEY ----------------
 app.secret_key = "loanappsecret"
@@ -17,6 +49,8 @@ login_manager.login_view = 'login'
 
 # ---------------- DATABASE ----------------
 def init_db():
+    with app.app_context():
+    db.create_all()
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
 
